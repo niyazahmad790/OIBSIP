@@ -63,8 +63,13 @@ public class Account {
 
         addTransaction(senderTransaction);
 
-        receiver.deposit(amount);
-    }
+        receiver.balance = receiver.balance + amount;
+
+        Transaction receiverTransaction =
+                new Transaction("Transfer Received", amount,
+                        "Received from Account " + this.accountId);
+
+        receiver.addTransaction(receiverTransaction);    }
 
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);

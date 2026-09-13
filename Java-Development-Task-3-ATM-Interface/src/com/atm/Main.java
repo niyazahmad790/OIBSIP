@@ -128,24 +128,18 @@ public class Main {
                     break;
 
                 case 4:
-
                     System.out.print("Enter receiver Account ID: ");
                     int receiverId = scanner.nextInt();
 
                     Account receiverAccount = bank.findAccount(receiverId);
 
                     if (receiverAccount == null) {
-
                         System.out.println("Receiver Account not found");
                         break;
                     }
 
-                    if (receiverAccount == loggedInAccount) {
-
-                        System.out.println(
-                                "Cannot transfer money to the same account"
-                        );
-
+                    if (receiverAccount.getAccountId() == loggedInAccount.getAccountId()) {
+                        System.out.println("Cannot transfer money to the same account");
                         break;
                     }
 
@@ -153,33 +147,23 @@ public class Main {
                     double transferAmount = scanner.nextDouble();
 
                     if (transferAmount <= 0) {
-
                         System.out.println("Invalid transfer amount");
-
-                    } else if (loggedInAccount.getBalance() >= transferAmount) {
-
-                        loggedInAccount.transfer(
-                                receiverAccount,
-                                transferAmount
-                        );
+                    } else if (loggedInAccount.getBalance() < transferAmount) {
+                        System.out.println("Insufficient Funds");
+                    } else {
+                        loggedInAccount.transfer(receiverAccount, transferAmount);
 
                         System.out.println("Transfer Successful!");
-                        System.out.println(
-                                "Transferred Amount: ₹"
-                                        + transferAmount
-                        );
-
-                        System.out.println(
-                                "Remaining Balance: ₹"
-                                        + loggedInAccount.getBalance()
-                        );
-
-                    } else {
-
-                        System.out.println("Insufficient Funds");
+                        System.out.println("Transferred Amount: " + transferAmount);
+                        System.out.println("Remaining Balance: " + loggedInAccount.getBalance());
                     }
 
                     break;
+
+
+
+
+
 
                 case 5:
 
